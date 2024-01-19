@@ -17,7 +17,7 @@ def analyse_usbhid_data(pcapFilePath,src,argument):
 # 获取 usb.capdata 列表
 def analyse_usb_capdata(pcapFilePath,src,argument):
     usb_capdata = []
-    os.system("tshark -r {} -T fields -e usb.capdata \"usb.data_len == 8 && usb.src == {}\" > usb.capdata".format(pcapFilePath,src))
+    os.system("tshark -r {} -T fields -a usb.capdata \"usb.data_len == 8 && usb.src == {}\" > usb.capdata".format(pcapFilePath,src))
     with open("usb.capdata") as f:
         for line in f:
             usb_capdata.append(line.strip())
@@ -50,7 +50,7 @@ def result(presses,src,argument,path):
 
 def error():
     #输入 -a 则全部输出，输入 -b 则将过滤 <DEL> <ESC> 之类的符号
-    print("Example:\n\tpython -a UsbKeyboardDataAnalyse.py data.pcapng\nArgument:\n\t[-a]:Output all data.\n\t[-b]:Output only common characters.")
+    print("Example:\n\tpython UsbKeyboardDataAnalyse.py -a  data.pcapng\nArgument:\n\t[-a]:Output all data.\n\t[-b]:Output only common characters.")
     exit()
     
 def main():
